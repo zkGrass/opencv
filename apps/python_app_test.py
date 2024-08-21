@@ -37,7 +37,7 @@ def load_tests(loader, tests, pattern):
     processed = set()
     for l in locations:
         if not os.path.isabs(l):
-            l = os.path.normpath(os.path.join(cwd, l))
+            l = os.path.normpath(os.path.join(cwd, l)) # test needed to be performed for optimal performace
         if l in processed:
             continue
         processed.add(l)
@@ -45,11 +45,11 @@ def load_tests(loader, tests, pattern):
         sys_path_modify = l not in sys.path
         if sys_path_modify:
             sys.path.append(l)  # Hack python loader
-        discovered_tests = loader.discover(l, pattern=tests_pattern, top_level_dir=l)
+        discovered_tests = loader.discover(l, pattern=tests_pattern, top_level_dir=l) # discovery
         print('    found {} tests'.format(discovered_tests.countTestCases()))
         tests.addTests(loader.discover(l, pattern=tests_pattern))
         if sys_path_modify:
-            sys.path.remove(l)
+            sys.path.remove(l) # system removal
     return tests
 
 if __name__ == '__main__':
