@@ -36,6 +36,10 @@ if(POLICY CMP0042)
   cmake_policy(SET CMP0042 NEW)  # CMake 3.0+ (2.8.12): MacOS "@rpath" in target's install name
 endif()
 
+#Required to resolve linker error issues due to incompatibility with CMake v3.0+ policies.
+  #CMake fails to find _fseeko() which leads to subsequent linker error.
+  #See details here: http://www.cmake.org/Wiki/CMake/Policies
+
 if(POLICY CMP0046)
   cmake_policy(SET CMP0046 NEW)  # warn about non-existed dependencies
 endif()
